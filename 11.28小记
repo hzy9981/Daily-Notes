@@ -14,7 +14,7 @@ arr.length = 3;
 console.log(arr); //=> [11, 22, 33]
 
 设计模式：
-1.单例设计模式
+1.单例设计模式第一层
 这个设计模式的初衷是什么？举个例子，如果我要打开电脑上的一个任务管理器，那么如果再打开一个呢？这两个任务管理器的界面内容应该是用户需要看到的，
 但是内容是一样的，也不是完全一样，比如上面显示的cpu占用10%和15%，但是这样就会造成资源的浪费，正确的做法就是如果我再打开一个任务管理器，就直接
 跳转到第一个打开的任务管理器。不然的话，打开了两个任务管理器，CPU占用的资源不一样，用户不知道哪个是真的了。
@@ -29,5 +29,124 @@ console.log(arr); //=> [11, 22, 33]
                             }
                             return t;
                    }
+外部创建对象的例子：taks t1 = taks.getInstance();
+                  taks t2 = taks.getInstance();
+                  taks t3 = taks.getInstance();这里虽然创建了三个对象，但是其实是同一个对象，确保了对象的唯一性。
 在getInstance方法中，先判断t对象是否存在，如果不存在，就new一个t对象，并返回，否则直接返回t。加上static关键字，外界就可以使用类名来访问此方法。
 这样的话，第一次调用的时候就创建t实例，再次调用的时候，已经存在就直接返回第一次创建的实例，从而确保了对象的唯一性。
+
+2.单例模式的运用第二层境界：
+  负载均衡器的设计与实现：
+    负载均衡可以将并发访问和数据流量分发到服务器集群中的多台设备上进行并发处理，提高系统的整体处理能力，缩短响应时间。由于集群中的服务器需要动态删减，
+    且客户端请求需要统一分发，因此需要确保负载均衡器的唯一性，只能有一个负载均衡器来负责服务器的管理和请求的分发，否则将会带来服务器状态的不一致以及
+    请求分配冲突等问题。所以说如何确保负载均衡器的唯一性是关键。
+ 因此单例设计模式就派上用场了。
+ 
+3.单例设计模式的第三层境界：
+  饿汉式与懒汉式
+  负载均衡的设计有一个非常严重的问题，就是当负载均衡器启动的过程中，用户再次启动该负载均衡器，系统不会出现异常，但是当客户端提交请求时出现请求
+  分发失败！其实系统中还是存在多个负载均衡器，导致分发时，目标服务器不一致。
+  分析如下：
+  第一次调用负载均衡器时，instance对象为null，系统创建对象需要花时间去初始化，如果再一次调用，通常在多线程环境中，由于对象仍未创建成功，值仍然为null
+  因此，就创建了多个instance对象，这就违背了单例模式的初衷。
+  
+  如何解决呢？两种方案，饿汉式单例和懒汉式单例。
+  饿汉式：最简单的单例
+      类加载的时候就创建单例对象。
+ class EagerSingleton {   
+    private static final EagerSingleton instance = new EagerSingleton();   
+    private EagerSingleton() { }   
+
+    public static EagerSingleton getInstance() {  
+        return instance;   
+    }     
+}
+  
+  懒汉式：
+      懒汉式就是之前的负载均衡器的实现方式，又称延迟加载。即需要的时候再加载实例，为了避免多个线程同时调用getInstance()方法，使用关键字synchronized
+ class LazySingleton {   
+    private static LazySingleton instance = null;   
+
+    private LazySingleton() { }   
+
+    synchronized public static LazySingleton getInstance() {   
+        if (instance == null) {  
+            instance = new LazySingleton();   
+        }  
+        return instance;   
+    }  
+}
+这个方法虽然能够解决问题，但是每次调用都要进行线程锁判断，这样的话系统的性能会大大降低，其实我们无需对整个getInstance方法进行锁定，只需要对实例化进行
+锁定即可。
+public static LazySingleton getInstance() {   
+    if (instance == null) {  
+        synchronized (LazySingleton.class) {  
+            instance = new LazySingleton();   
+        }  
+    }  
+    return instance;   
+}
+这样看似解决了？其实不然，这样的话还是会存在单例对象不唯一。
+原因如下：
+    假如线程A和线程B同时调用getInstance方法，此时instance的值都是null，由于加锁了，假设A进入，执行代码，B处于等待状态，当A执行完，B仍然不知道实例
+    已经创建！因此，需要在B执行的时候，再判断一次if (instance == null) {},这种方式称为双重检查锁定。具体实现代码如下：
+    class LazySingleton(){
+          private volatile static LazySingleton instance = null;
+          private LazySingleton(){}
+          public static LazySingleton getInstance(){
+              //第一重判断
+              if(instance == null){
+                //锁定代码块
+                synchronized (LazySingleton.class){
+                //第二重判断
+                  if(instance == null){
+                    instance = new LazySingleton();//创建单例实例
+                      }
+                  }
+              }
+              return instance;
+          }
+    }
+  注意：其中volatile修饰符，被这个修饰符修饰的成员变量，可以确保多个线程都能够正确处理，但是这个关键字会屏蔽java虚拟机所做的一些代码优化，
+  还是会影响性能。
+  
+4.单例设计模式的第四层境界：
+  饿汉式与懒汉式结合的Initialization Demand Holder (IoDH)技术
+  饿汉式单例不能实现延迟加载，懒汉式单例线程安全控制繁琐，性能受到影响。IoDH技术结合了饿汉式和懒汉式的优点。
+  
+  IoDH技术做了什么呢？在单例类中增加一个静态的内部类，在该内部类中创建单例对象，再将该单例对象通过getInstance()方法返回给外部使用，代码如下：
+  class Singleton {  
+    private Singleton() {  
+    }  
+
+    private static class HolderClass {  
+            private final static Singleton instance = new Singleton();  
+    }  
+
+    public static Singleton getInstance() {  
+        return HolderClass.instance;  
+    }  
+
+    public static void main(String args[]) {  
+        Singleton s1, s2;   
+        s1 = Singleton.getInstance();  
+        s2 = Singleton.getInstance();  
+        System.out.println(s1==s2);  
+    }  
+}
+以上的结果是true。即s1和s2是同一对象。
+这里思考一下，为什么使用内部类，有什么好处。
+这里由于静态单例对象没有作为Singleton的成员变量直接实例化，因此类加载时不会实例化Singleton，第一次调用getInstance()时加载内部类HolderClass
+，在该内部类中定义了一个static类型的变量instance，此时会首先初始化这个成员变量，由java虚拟机来保证其线程安全，确保该成员变量只能初始化一次。也
+没有任何线程锁定，故对性能没有任何影响。
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
