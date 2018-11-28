@@ -13,57 +13,21 @@ const arr = [11, 22, 33, 44, 55, 66];
 arr.length = 3;
 console.log(arr); //=> [11, 22, 33]
 
-收集的网址：
-码农网，上面有很多种语言的技巧
-http://www.codeceo.com
+设计模式：
+1.单例设计模式
+这个设计模式的初衷是什么？举个例子，如果我要打开电脑上的一个任务管理器，那么如果再打开一个呢？这两个任务管理器的界面内容应该是用户需要看到的，
+但是内容是一样的，也不是完全一样，比如上面显示的cpu占用10%和15%，但是这样就会造成资源的浪费，正确的做法就是如果我再打开一个任务管理器，就直接
+跳转到第一个打开的任务管理器。不然的话，打开了两个任务管理器，CPU占用的资源不一样，用户不知道哪个是真的了。
+  所以单例设计模式的目的就是节约系统资源，为了确保对象的唯一性，无法再创建一个同类型的其他对象，所有的操作只能围绕这一个实例。
+为了防止每次new都实例化一个新的对象，需要禁止外部使用new创建对象，因此使用到关键字private修饰构造函数，例如：private task(){}
+在内部创建对象：private static task t = null;
 
-看雪论坛，可以收集些资料
-https://bbs.pediy.com
-
-JQuery插件库
-http://www.jq22.com/
-
-Echarts gallery，一些热力图，条形图，饼状图之类
-http://gallery.echartsjs.com/explore.html#charts=map~sort=rank~timeframe=all~author=all
-
-免费将PDF转换成各种格式的网址
-https://topdf.com/zh/
-
-NetSuite的开发使用技巧的网址，插件之类的
-https://www.abaci-us.com/chrome-extensions-netsuite/
-
-Git使用笔记
-https://mp.weixin.qq.com/s/kP-unh4H7nBf7j21pAvYnA
-
-Apache的模板引擎freemaker
-https://freemarker.apache.org/docs/index.html
-
-android开发资源网址汇总
-https://www.jianshu.com/p/0c36302e0ed0
-
-GitHub上的优秀的android开源项目
-https://blog.csdn.net/cry_smile_hate/article/details/79256190
-
-程序员必备网站，包括书籍，刷题，插件下载，在线工具箱，思维导图，代码分享
-https://www.jianshu.com/p/44a4a1c32b4f
-
-别人的GitHub上的一些书籍
-https://github.com/mymmsc/books
-
-CSDN上的23种设计模式解释说明
-https://blog.csdn.net/anxpp/article/details/51224293
-
-web前端开发评测系统
-http://scriptoj.mangojuice.top/
-
-AI根据人类音乐库，自己做的音乐
-https://www.aiva.ai/
-
-NetSuite相关网站，当时是找表单状态对应的值的
-http://blog.prolecto.com/2013/08/30/netsuite-searchfilter-transaction-internal-status-list/
-
-在线json格式校验
-https://www.bejson.com/
-
-这个网站可以在线运行各种语言的代码
-https://leetcode-cn.com/playground/new/empty
+在内部创建的对象，外界如何取调用？
+增加一个公有的静态方法：public static task getInstance(){
+                            if(t == null){
+                               t = new task();
+                            }
+                            return t;
+                   }
+在getInstance方法中，先判断t对象是否存在，如果不存在，就new一个t对象，并返回，否则直接返回t。加上static关键字，外界就可以使用类名来访问此方法。
+这样的话，第一次调用的时候就创建t实例，再次调用的时候，已经存在就直接返回第一次创建的实例，从而确保了对象的唯一性。
