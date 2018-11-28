@@ -1,0 +1,7 @@
+htm、html、shtml的区别：
+首先，三者都是静态网页的后缀。
+htm和html是完全静态的网页，不通过服务器编译，浏览器可以直接读取的。
+htm和html几乎没有区别
+shtml可以使用ssi的一些指令，ssi是web服务器提供的一套命令，这些命令只要直接嵌入到HTML文档的注释之中即可，如：<!--#include file="info.htm"-->
+
+
