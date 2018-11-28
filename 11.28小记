@@ -8,3 +8,60 @@ shtml可以使用ssi的一些指令，ssi是web服务器提供的一套命令，
 内部类就是为了实现多继承。
 使用内部类的好处：封装性
 
+删除数组尾部元素，改变数组的长度
+const arr = [11, 22, 33, 44, 55, 66];
+arr.length = 3;
+console.log(arr); //=> [11, 22, 33]
+
+收集的网址：
+码农网，上面有很多种语言的技巧
+http://www.codeceo.com
+
+看雪论坛，可以收集些资料
+https://bbs.pediy.com
+
+JQuery插件库
+http://www.jq22.com/
+
+Echarts gallery，一些热力图，条形图，饼状图之类
+http://gallery.echartsjs.com/explore.html#charts=map~sort=rank~timeframe=all~author=all
+
+免费将PDF转换成各种格式的网址
+https://topdf.com/zh/
+
+NetSuite的开发使用技巧的网址，插件之类的
+https://www.abaci-us.com/chrome-extensions-netsuite/
+
+Git使用笔记
+https://mp.weixin.qq.com/s/kP-unh4H7nBf7j21pAvYnA
+
+Apache的模板引擎freemaker
+https://freemarker.apache.org/docs/index.html
+
+android开发资源网址汇总
+https://www.jianshu.com/p/0c36302e0ed0
+
+GitHub上的优秀的android开源项目
+https://blog.csdn.net/cry_smile_hate/article/details/79256190
+
+程序员必备网站，包括书籍，刷题，插件下载，在线工具箱，思维导图，代码分享
+https://www.jianshu.com/p/44a4a1c32b4f
+
+别人的GitHub上的一些书籍
+https://github.com/mymmsc/books
+
+CSDN上的23种设计模式解释说明
+https://blog.csdn.net/anxpp/article/details/51224293
+
+web前端开发评测系统
+http://scriptoj.mangojuice.top/
+
+AI根据人类音乐库，自己做的音乐
+https://www.aiva.ai/
+
+NetSuite相关网站，当时是找表单状态对应的值的
+http://blog.prolecto.com/2013/08/30/netsuite-searchfilter-transaction-internal-status-list/
+
+在线json格式校验
+https://www.bejson.com/
+
