@@ -33,13 +33,31 @@ Controller表示控制器，相当于胶水的作用，将Model和View粘合起�
 }
 
 2.真实主题类继承了抽象主题类，提供了业务方法的具体实现，其典型代码如下：
-class RealSubject extend Subject  {  
+class RealSubject extends Subject  {  
     public override void Request()  {  
         //业务方法具体实现代码  
     }  
 }
 
-3.代理主题类也是抽象主题类的子类，它维持一个对真实主题对象的引用，调用在真实主题中实现的业务方法
+3.代理主题类也是抽象主题类的子类，它维持一个对真实主题对象的引用，调用在真实主题中实现的业务方法，在调用时可以在原有业务方法的基础上附加一些新的方法
+来对功能进行扩充或约束，最简单的代理类实现代码如下：
+class Proxy extends Subject  {  
+    private RealSubject realSubject = new RealSubject(); //维持一个对真实主题对象的引用  
+
+    public void PreRequest() {  
+        …...  
+    }  
+
+    public override void Request() {  
+        PreRequest();  
+        realSubject.Request(); //调用真实主题对象的方法  
+         PostRequest();  
+    }  
+
+    public void PostRequest() {  
+        ……  
+    }  
+}
 
 
 
