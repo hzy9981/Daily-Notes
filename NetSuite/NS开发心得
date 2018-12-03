@@ -1,1 +1,15 @@
 2018.12.3
+JS中prototype属性：
+prototype 属性使您有能力向对象添加属性和方法。
+比如我想给一个JS数组对象--Array添加contains方法，后面创建的数组都可以调用这个方法，用来判断数组中是否包含某个元素。
+
+Array.prototype.contains = function (value) {
+    var a = this;
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] == value) { // 不是===
+            return true;
+        }
+    }
+    return false;
+};
+
