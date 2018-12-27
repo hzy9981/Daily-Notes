@@ -1,0 +1,33 @@
+一、
+Javascript 的sort()函数在默认情况下使用字母数字（字符串Unicode码点）排序。
+
+所以[1,2,5,10].sort() 会输出 [1, 10, 2, 5].
+
+要正确的排序一个数组, 你可以用 [1,2,5,10].sort((a, b) => a — b)
+
+二、
+new Date() 可以接受：
+
+没有参数： 返回当前时间
+一个参数 x： 返回1970年1月1日 + x 毫秒。 了解 Unix 的人知道为什么。
+
+三、
+let s = "bob"
+const replaced = s.replace('b', 'l')
+replaced === "lob"
+s === "bob"
+我觉得这是一件好事，因为我不喜欢函数改变它们的输入。 你还应该知道 replace 只会替换第一个匹配的字符串:
+
+如果你想替换所有匹配的字符串，你可以使用带/g标志的正则表达式 :
+
+"bob".replace(/b/g, 'l') === 'lol' // 替换所有匹配的字符串
+
+四、
+typeof {} === 'object'  // true
+typeof 'a' === 'string' // true
+typeof 1 === number     // true
+// But....
+typeof [] === 'object'  // true
+如果你想知道你的变量是不是数组，你仍然可以用Array.isArray(myVar)
+
+五、
