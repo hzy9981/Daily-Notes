@@ -1,0 +1,11 @@
+2019/1/23
+JS可以使用任意数量的参数，与C和Java不同。
+function foo(num1 =9) {
+    console.log(num1);
+}
+foo();
+对于函数foo，如果num1参数的值未被传递，那么JavaScript将设置9作为num1的默认值。如果传值，那么值就是传递的那个值。如果传递的值是未定义的值，
+那么默认值还是9
+foo(undefined);//默认值是9
+
+
