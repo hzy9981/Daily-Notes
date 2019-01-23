@@ -1,0 +1,50 @@
+一、let 语句是在es6中引入，let语句是创建块范围局部变量。
+var声明的变量是函数(全局)范围，如下，if内的x就是var出来的x，改变if内的x，函数foo()中的x也会改变
+function foo() {
+    var x = 9;
+    if (x > 5) {
+        var x = 7;
+        console.log("Value of x in if statement = " + x);//x=7
+    }
+    console.log("Value of x outside if statement = " + x);//x=7
+}
+foo();
+
+二、如果第二个想输出9，就要用到let语句，因为let语句是块级的，只存在它定义的块中。
+function foo() {
+    var x = 9;
+    if (x > 5) {
+        let x = 7;
+        console.log("Value of x in if statement = " + x);//x=7
+    }
+    console.log("Value of x outside if statement = " + x);//x=9
+}
+foo();
+
+三、let声明的变量不会提升到上下文，如下，
+function foo() {
+    console.log(x);//9
+    console.log(y);//error，y is not defined
+    var x = 9;
+    let y = 67;
+}
+foo();
+
+四、不能在同一个函数或块中重新声明一个变量。
+function foo() {
+    if(true){
+        let x = 9;
+        let x = 89; //error
+    }
+}
+foo();
+
+五、有时候使用let声明的变量会出现暂时性死区。
+let x = x + 67;//error,x is not defined
+因为x是块级的，而不是函数范围的。
+
+
+
+
+
+
