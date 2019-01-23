@@ -1,0 +1,24 @@
+function abc() {
+    console.log(foo);//undefined
+    var foo = 9;
+}
+abc();
+变量的声明位于执行上下文的顶部，而赋值发生在创建变量的位置
+以上函数可以解析为以下
+function abc(){
+var foo;
+console.log(foo);
+foo = 9;
+}
+
+看如下例子：
+foo();//hello
+function foo() {
+    console.log("hello");
+}
+
+//函数作为表达式的时候
+foo();//undefined
+var foo = function () {
+    console.log("hello");
+}
