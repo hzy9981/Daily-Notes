@@ -1,0 +1,2 @@
+通过id获取元素的时候，比如说document.getElementById("con");返回的是一个对象，如果想获得字符串，document.getElementById("con").innerHTML;即可。
+
