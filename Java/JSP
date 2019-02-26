@@ -1,0 +1,17 @@
+JSP的生命周期。（JSP编译-JSP初始化-JSP执行-JSP销毁）
+a.JSP编译
+  当浏览器请求JSP页面时，JSP引擎首先去检查是否需要编译这个文件，如果没有编译过，或者编译过后有所更改，就需要重新编译。
+  编译过程：1.解析JSP文件
+           2.将JSP文件转为servlet
+           3.编译servlet
+b.JSP初始化
+  调用jspInit()方法初始化，在这里比如初始化数据库连接，打开文件夹或者创建表查询。
+
+c.JSP执行
+  JSP初始化完成后会调用_jspService(HttpServletRequest request,HttpServletResponse response)方法，进行一系列比如增删改查的操作
+  
+d.JSP销毁
+  jspDestroy()方法，JSP网页从容器中被移除，在这里比如释放数据库连接或者关闭文件夹等操作
+
+JSP脚本程序语法格式：
+    <% 代码片段 %>
