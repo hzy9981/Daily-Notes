@@ -1,0 +1,14 @@
+cookie和session的引入
+因为http是无状态的，不能建立多次请求之间的关系。需要引入一个能有浏览器或服务器保存的一个上下文状态，也就是cookie和session。
+session的实现是依赖于cookie，cookie是真正的由浏览器保存的状态。session是利用了JsessionID。
+
+如果系统有不止一个业务，那么可能部署在不同的服务器上，就需要不同的域名进行区分。但是所有的业务体系都依赖同一套账户体系，就需要一次登录解决所有站点的登录
+问题。即一次登录成功，将cookie写到根域下，那么这样所有的站点就能实现同一个根域下的cookie共享。
+
+跨根域的站点之间进行cookie共享：
+1.登录成功后将cookie回写到多个域名下
+2.jsonp
+3.引入中间态的server
+4.基于CAS的SSO系统
+
+https://blog.csdn.net/akaks0/article/details/81703017详细链接
