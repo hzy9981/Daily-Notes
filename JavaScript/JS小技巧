@@ -44,6 +44,13 @@ var demo={name:'ki'}
 第一种方式：demo.name;
 第二种方式：demo['name'];
 
+12.["1","2","3"].map(parseInt);返回的是1，NaN,NaN
+parseInt("1",0)//第二个参数是索引，至于为什么返回NaN，看下parseInt()方法的参数
+parseInt("3",1)
+parseInt("3",2)
+
+
+
 
 
 
