@@ -1,0 +1,60 @@
+1.选择运算符"||"
+var a = 0 || 3;
+并不是a=0或者a=3，这是js的三元运算符，如果=后面的第一个值的计算结果为真，那么a=1，否则取第二个值a=3
+
+2.单链式运算符
+var a = 10;
+console.log(a++ -1);
+先执行"a-1",再执行"a=a+1"
+
+3.location.replace("www.baidu.com");
+跳转至新页面，并且保证浏览器不会再退回
+
+4./^-\d+$/.test(str);
+验证是否为负数的正则表达式
+
+5.window.print();
+javascript打印页面
+
+6.alert("p\np");
+实现alert()中的文本换行，"\n"表示换行符
+
+7.字符与ASCII码之间的转换
+console.log("a",charCodeAt(0));//97
+console.log(String.fromCharCode(75));//K
+
+8.把一个值转换为boolean类型的最简单的方式
+使用"!"操作符两次，可以把一个值转换为boolean类型
+
+9.声明变量时的缩略写法和复杂写法
+复杂写法：
+var x;
+var y;
+var z = 3;
+缩略写法:
+var x,y,z=3;
+尽量采用缩略写法，有助于提高性能
+
+10.采用惰性载入的方案提高函数代码的性能：
+  所谓惰性载入就是在第一次执行代码后，用函数代码内部的方法覆盖原有代码
+
+
+11.访问对象属性
+var demo={name:'ki'}
+第一种方式：demo.name;
+第二种方式：demo['name'];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
